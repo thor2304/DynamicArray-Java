@@ -90,6 +90,7 @@ public class DynamicArray implements HomeMadeList {
 
         int[] temporaryArray = new int[tempLength];
 
+
         // Add all elements up till the one we want to remove
         for (int i = 0; i < index; i++) {
             temporaryArray[i] = underLyingArray[i];
@@ -99,6 +100,12 @@ public class DynamicArray implements HomeMadeList {
         for (int i = index + 1; i < savedElements; i++) {
             temporaryArray[i - 1] = underLyingArray[i];
         }
+// Alternative best practice using System.arraycopy
+//        // Add all elements up till (and excluding) the one we want to remove
+//        System.arraycopy(this.underLyingArray, 0, temporaryArray, 0, index);
+//
+//        // Add all elements after the element we want to remove
+//        System.arraycopy(this.underLyingArray, index + 1, temporaryArray, index, savedElements - index);
 
         underLyingArray = temporaryArray;
         savedElements--;
@@ -109,7 +116,7 @@ public class DynamicArray implements HomeMadeList {
     public int[] getArrayCopy() {
         int length = this.getArraySize();
         int[] out = new int[length];
-        System.arraycopy(this.underLyingArray, length, out, 0, length);
+        System.arraycopy(this.underLyingArray, 0, out, 0, length);
         return out;
     }
 }
