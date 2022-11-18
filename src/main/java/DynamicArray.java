@@ -101,6 +101,7 @@ public class DynamicArray implements HomeMadeList {
         }
 
         underLyingArray = temporaryArray;
+        savedElements--;
 
         return out;
     }
