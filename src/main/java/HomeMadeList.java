@@ -1,50 +1,47 @@
 public interface HomeMadeList {
-    /**Purpose unknown
-     *
-     * @return
+    /**
+     * Searches the list and finds the index of the element toFind
+     * @param toFind The element to find
+     * @return The index of toFind in the list <br> -1 if not present
      */
-    int getFill();
+    int indexOf(int toFind);
+
 
     /**
-     * Purpose unknown
-     *
-     * @return
+     * Does the same as {@link java.util.ArrayList#size()}
+     * @return Returns the amount of elements filled into the array.
      */
-    int index();
+    int size();
 
     /**
-     * Returns the amount of elements filled into the array
-     * @return An integer that represents the number of elements that have been saved into the array.
+     * This method has no counterpart in {@link java.util.ArrayList} <br>
+     * It returns the size of the underlying array. This is useful for demonstration purposes. <br>
+     * In ArrayList this is abstracted away, since you as a developer should not be using this information.
+     * @return The size of the underlying array
      */
-    int getSize();
-
-    /**
-     * Returns the size of underlying array, this includes the empty fields
-     * @return An integer that is equivalent to this.underLyingArray.length
-     */
-    int getArraySize();
+    int getUnderlyingSize();
 
     /**
      * Inserts the value at the end of the array.
      * The first empty spot is considered the end of the array.
      * equivalent:
-     * {@link #insert(int, int)} with insert(this.getSize(), int a)
+     * {@link #add(int, int)} with insert(this.getSize(), int a)
      */
-    void insert(int a);
+    void add(int a);
 
     /**
      * Inserts the value at the specified index
      * @param index The index to write the value to
      * @param a The value to save
      */
-    void insert(int index, int a);
+    void add(int index, int a);
 
     /**
      * Returns the value stored at the index
      * @return The value saved at the index
      * @param index The index to retrieve the value from
      */
-    int getIndex(int index);
+    int get(int index);
 
     /**Removes the element that is saved at the specified index.
      * The value that was saved at the index is returned
@@ -54,10 +51,12 @@ public interface HomeMadeList {
      */
     int remove(int index);
 
-    /**Returns a copy of the underlying Array.
-     * Changes to this array will not affect the underlying array of this List
+    /**
+     * This method is used to convert this {@link HomeMadeList} to a regular array. <br><br>
+     * It copies the contents of the list into a new array,
+     * such that changes in one of these does not affect the other.
      *
-     * @return a copy of the underlying Array
+     * @return an array that contains the same elements as this list
      */
-    int[] getArrayCopy();
+    int[] toArray();
 }
