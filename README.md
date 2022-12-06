@@ -15,6 +15,14 @@ JavaDocs are inherited, so this can be done on the implementation as well.
 The interface of the HomeMadeList has been constructed to mimic that of ArrayList. <br>
 This similarity is displayed in ArrayDemo.java, where the same operations are performed on both lists. 
 
+# Automated tests?
+For this project I have chosen not to implement automated tests despite my deep love for them.
+The reason is that when this demo is introduced to the students, they have not yet seen automated testing.
+Therefore, I have assumed that this would add unnecessary complexity, for the students.
+
+I would gladly add automated tests if this is something that is deemed valuable for the students. 
+I personally believe that it could be a great example to demonstrate how the elements in ArrayDemo would be translated into automated tests.
+
 # Changes from the brief
 The following changes have been made to conform to the interface of ArrayList:
 - `getFill()` has been renamed to `size()` 

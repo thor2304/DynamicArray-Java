@@ -4,48 +4,149 @@ import java.util.List;
 public class ArrayDemo {
     public static void main(String[] args) {
         demoHomemade();
-        System.out.println("\n");
+        Demo.reset();
         demoArrayList();
+        Demo.reset();
+        demoExpansion();
     }
 
-    private static void demoHomemade(){
-        System.out.println("Demoing Homemade List");
-        System.out.println("-".repeat(100));
+    private static void demoExpansion() {
+        Demo.header("Demoing the expansion of our homemade List");
 
-        System.out.println("Initializing the homemade List");
+        Demo.next("Initializing the homemade List");
         HomeMadeList homeMadeList = new DynamicArray();
 
-        System.out.println("Adding 1, 3, 5 to the homemade list:");
+        Demo.next("Adding 1, 2, 3, 4, 5, 6 to the homemade list:");
+        homeMadeList.add(1);
+        homeMadeList.add(2);
+        homeMadeList.add(3);
+        homeMadeList.add(4);
+        homeMadeList.add(5);
+        homeMadeList.add(6);
+
+        System.out.println("" + homeMadeList + "\n");
+
+        System.out.printf("The underlying array currently has the size: %d%s", homeMadeList.getUnderlyingSize(), "\n");
+
+        Demo.next("Add another element to the array causes growth");
+        homeMadeList.add(7);
+        System.out.println(homeMadeList);
+        System.out.printf("The underlying array now has the size: %d%s", homeMadeList.getUnderlyingSize(), "\n");
+
+        Demo.next("Removing the element causes the array to shrink");
+        System.out.printf("The underlying array currently has the size: %d%s", homeMadeList.getUnderlyingSize(), "\n");
+        System.out.printf("Removing %d from index %d%s", homeMadeList.remove(2),2, "\n");
+        System.out.printf("The underlying array now has the size: %d%s", homeMadeList.getUnderlyingSize(), "\n");
+
+        System.out.println("" + homeMadeList + "\n");
+
+
+
+
+
+    }
+
+    private static void demoHomemade() {
+        Demo.header("Demoing Homemade List");
+
+        Demo.next("Initializing the homemade List");
+        HomeMadeList homeMadeList = new DynamicArray();
+
+        Demo.next("Adding 1, 3, 5 to the homemade list:");
         homeMadeList.add(1);
         homeMadeList.add(3);
         homeMadeList.add(5);
 
         System.out.println("" + homeMadeList + "\n");
 
-        System.out.println("removing 3 from the list (by removing from index 1)");
-        homeMadeList.remove(1);
+        Demo.next("Removing 3 from the list (by removing from index 1)");
+        int removed = homeMadeList.remove(1);
+        System.out.printf("The value removed was %d%s", removed, "\n");
 
         System.out.println("" + homeMadeList + "\n");
+
+        Demo.next("Get from the list");
+        int theIndex = 1;
+        int myValue = homeMadeList.get(theIndex);
+        System.out.printf("Getting the element at index %d, it is %d%s", theIndex, myValue, "\n\n");
+
+        Demo.next("Trying to get from an index that is too high throws an exception");
+        try {
+            homeMadeList.get(2);
+            // Since an exception causes us to leave this scope immediately,
+            // the below statement is only executed if the exception is not thrown
+            System.out.println("Exception is not thrown as expected");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Exception thrown as expected:\n\t" + e.getMessage() + "\n");
+        }
+
+        Demo.next("Trying to remove from an index that is too high throws an exception");
+        try {
+            homeMadeList.remove(2);
+            System.out.println("Exception is not thrown as expected");
+        } catch (ArrayIndexOutOfBoundsException e) {
+            System.out.println("Exception thrown as expected:\n\t" + e.getMessage());
+        }
     }
 
-    private static void demoArrayList(){
-        System.out.println("Demoing Javas ArrayList");
-        System.out.println("-".repeat(100));
+    private static void demoArrayList() {
+        Demo.header("Demoing Javas ArrayList");
 
-        System.out.println("Initializing the ArrayList");
+        Demo.next("Initializing the ArrayList");
         List<Integer> arrayList = new ArrayList<>();
 
-        System.out.println("Adding 1, 3, 5 to the ArrayList:");
+        Demo.next("Adding 1, 3, 5 to the ArrayList:");
         arrayList.add(1);
         arrayList.add(3);
         arrayList.add(5);
 
         System.out.println("" + arrayList + "\n");
 
-        System.out.println("removing 3 from the list (by removing from index 1)");
-        arrayList.remove(1);
+        Demo.next("removing 3 from the list (by removing from index 1)");
+        int removed = arrayList.remove(1);
+        System.out.printf("The value removed was %d%s", removed, "\n");
 
         System.out.println("" + arrayList + "\n");
 
+        Demo.next("Get from the list");
+        int theIndex = 1;
+        int myValue = arrayList.get(theIndex);
+        System.out.printf("Getting the element at index %d, it is %d%s", theIndex, myValue, "\n");
+
+        Demo.next("Trying to get from an index that is too high throws an exception");
+        try {
+            int result = arrayList.get(2);
+            // Since an exception causes us to leave this scope immediately,
+            // the below statement is only executed if the exception is not thrown
+            System.out.println("Exception is not thrown as expected");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Exception thrown as expected:\n\t" + e.getMessage() + "\n");
+        }
+
+        Demo.next("Trying to remove from an index that is too high throws an exception");
+        try {
+            arrayList.remove(2);
+            System.out.println("Exception is not thrown as expected");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Exception thrown as expected:\n\t" + e.getMessage());
+        }
+    }
+
+    private static class Demo {
+        private static int count = 0;
+
+        public static void next(String text) {
+            System.out.println("\n" + count + ". " + text + "\n" + "-".repeat(40));
+            count++;
+        }
+
+        public static void reset() {
+            System.out.println("\n");
+            count = 0;
+        }
+
+        public static void header(String headerText) {
+            System.out.println(headerText + "\n" + "-".repeat(120));
+        }
     }
 }

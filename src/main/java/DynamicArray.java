@@ -116,38 +116,39 @@ public class DynamicArray implements HomeMadeList {
             throw new ArrayIndexOutOfBoundsException("index " + index + " is out of bounds for the number of saved elements: " + savedElements);
         }
 
+        // Save the value that we remove, so it can be returned
         int out = underLyingArray[index];
 
-        int tempLength = this.underLyingArray.length;
+        // Move all elements after the element we want to remove
+        // This effectively removes/deletes the element at [index]
+        for (int i = index + 1; i < savedElements; i++) {
+            // Should be replaced with System.arrayCopy (Perhaps in a step focused on improvement?)
+            underLyingArray[i - 1] = underLyingArray[i];
+        }
+
+        //Since the element have been deleted, decrement savedElements
+        savedElements--;
+
+        //Set the last element and set to 0 to avoid duplicating when the elements are moved left
+        this.underLyingArray[savedElements] = 0;
+        // Try without this to see the effect
 
         // Check whether we should shrink
-        if ((savedElements - 1) * 2 == this.underLyingArray.length) {
-            tempLength = savedElements - 1;
-//            tempLength = this.underLyingArray // 2; // Should be equivalent to above
+        if (savedElements * 2 <= this.underLyingArray.length) {
+            //Shrink Array
+
+            int[] shrunkArray = new int[this.savedElements];
+
+            // Copy elements from underlying to the shrunk array
+            // We have already moved all the elements and deleted, so we should simply copy them over.
+            for (int i = 0; i < this.savedElements; i++) {
+                // Should be replaced with System.arrayCopy (Perhaps in a step focused on improvement?)
+                shrunkArray[i] = this.underLyingArray[i];
+            }
+
+            this.underLyingArray = shrunkArray;
         }
 
-        int[] temporaryArray = new int[tempLength];
-
-
-        // Add all elements up till the one we want to remove
-        for (int i = 0; i < index; i++) {
-            temporaryArray[i] = underLyingArray[i];
-        }
-
-        // Add all elements after the element we want to remove
-        for (int i = index + 1; i < savedElements; i++) {
-            temporaryArray[i - 1] = underLyingArray[i];
-        }
-/* Alternative best practice using System.arraycopy
-//        // Add all elements up till (and excluding) the one we want to remove
-//        System.arraycopy(this.underLyingArray, 0, temporaryArray, 0, index);
-//
-//        // Add all elements after the element we want to remove
-        System.arraycopy(this.underLyingArray, index + 1, temporaryArray, index, savedElements - index);
-*/
-
-        underLyingArray = temporaryArray;
-        savedElements--;
 
         return out;
     }
