@@ -1,3 +1,5 @@
+// Author: Thor Malmby Jørgin tjoer21@student.sdu.dk
+
 public interface HomeMadeList {
     /**
      * Searches the list and finds the index of the element toFind

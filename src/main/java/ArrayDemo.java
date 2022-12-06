@@ -1,3 +1,5 @@
+// Author: Thor Malmby Jørgin tjoer21@student.sdu.dk
+
 import java.util.ArrayList;
 import java.util.List;
 
