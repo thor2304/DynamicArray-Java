@@ -3,10 +3,11 @@ import java.util.List;
 
 public class ArrayDemo {
     public static void main(String[] args) {
+        Demo.reset(ConsoleColor.BLUE); // Simply here to centralize the colors
         demoHomemade();
-        Demo.reset();
+        Demo.reset(ConsoleColor.GREEN);
         demoArrayList();
-        Demo.reset();
+        Demo.reset(ConsoleColor.PURPLE);
         demoExpansion();
     }
 
@@ -35,13 +36,10 @@ public class ArrayDemo {
 
         Demo.next("Removing the element causes the array to shrink");
         System.out.printf("The underlying array currently has the size: %d%s", homeMadeList.getUnderlyingSize(), "\n");
-        System.out.printf("Removing %d from index %d%s", homeMadeList.remove(2),2, "\n");
+        System.out.printf("Removing %d from index %d%s", homeMadeList.remove(2), 2, "\n");
         System.out.printf("The underlying array now has the size: %d%s", homeMadeList.getUnderlyingSize(), "\n");
 
         System.out.println("" + homeMadeList + "\n");
-
-
-
 
 
     }
@@ -159,30 +157,34 @@ public class ArrayDemo {
 
     private static class Demo {
         private static int count = 0;
+        private static String currentColor = ConsoleColor.BLUE;
 
         /**
          * Prints a formatted divider and the next number in the list.
+         *
          * @param text The text that should be written on the header line after the number
          */
         public static void next(String text) {
-            System.out.println("\n" + count + ". " + text + "\n" + "-".repeat(40));
+            System.out.println("\n" + currentColor + count + ". " + text + "\n" + "-".repeat(40) + ConsoleColor.RESET);
             count++;
         }
 
         /**
          * Resets the count for the divider list
          */
-        public static void reset() {
+        public static void reset(String newColor) {
             System.out.println("\n");
             count = 0;
+            currentColor = newColor;
         }
 
         /**
          * Prints a header that separates different demos, without a number
+         *
          * @param headerText The text that is displayed above the dividing line
          */
         public static void header(String headerText) {
-            System.out.println(headerText + "\n" + "-".repeat(120));
+            System.out.println(currentColor + headerText + "\n" + "#".repeat(120) + ConsoleColor.RESET);
         }
     }
 }
