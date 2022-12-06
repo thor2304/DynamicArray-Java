@@ -135,16 +135,27 @@ public class ArrayDemo {
     private static class Demo {
         private static int count = 0;
 
+        /**
+         * Prints a formatted divider and the next number in the list.
+         * @param text The text that should be written on the header line after the number
+         */
         public static void next(String text) {
             System.out.println("\n" + count + ". " + text + "\n" + "-".repeat(40));
             count++;
         }
 
+        /**
+         * Resets the count for the divider list
+         */
         public static void reset() {
             System.out.println("\n");
             count = 0;
         }
 
+        /**
+         * Prints a header that separates different demos, without a number
+         * @param headerText The text that is displayed above the dividing line
+         */
         public static void header(String headerText) {
             System.out.println(headerText + "\n" + "-".repeat(120));
         }
