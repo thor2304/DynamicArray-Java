@@ -25,16 +25,17 @@ public interface HomeMadeList {
      * Inserts the value at the end of the array.
      * The first empty spot is considered the end of the array.
      * equivalent:
-     * {@link #add(int, int)} with insert(this.getSize(), int a)
+     * {@link #set(int, int)} with insert(this.getSize(), int a)
      */
     void add(int a);
 
     /**
-     * Inserts the value at the specified index
+     * Inserts the value at the specified index.<br>
+     * set can only be used to change the value of an index, that has already been added.
      * @param index The index to write the value to
      * @param a The value to save
      */
-    void add(int index, int a);
+    void set(int index, int a);
 
     /**
      * Returns the value stored at the index

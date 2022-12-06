@@ -87,6 +87,23 @@ public class ArrayDemo {
         } catch (ArrayIndexOutOfBoundsException e) {
             System.out.println("Exception thrown as expected:\n\t" + e.getMessage());
         }
+
+        Demo.next("Using set on an index, that is outside the current length throws an exception");
+        try {
+            homeMadeList.set(2, 2);
+            System.out.println("Exception is not thrown as expected");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Exception thrown as expected:\n\t" + e.getMessage());
+        }
+
+        System.out.println("" + homeMadeList + "\n");
+
+        Demo.next("Using set on an index, that is within the allowed does not throw an exception and changes the value");
+        homeMadeList.set(0, 200);
+
+        System.out.println("" + homeMadeList + "\n");
+
+
     }
 
     private static void demoArrayList() {
@@ -126,6 +143,14 @@ public class ArrayDemo {
         Demo.next("Trying to remove from an index that is too high throws an exception");
         try {
             arrayList.remove(2);
+            System.out.println("Exception is not thrown as expected");
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println("Exception thrown as expected:\n\t" + e.getMessage());
+        }
+
+        Demo.next("Using set on an index, that is outside the current length throws an exception");
+        try {
+            arrayList.set(2, 2);
             System.out.println("Exception is not thrown as expected");
         } catch (IndexOutOfBoundsException e) {
             System.out.println("Exception thrown as expected:\n\t" + e.getMessage());

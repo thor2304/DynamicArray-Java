@@ -65,41 +65,37 @@ public class DynamicArray implements HomeMadeList {
 
     // For javadoc see HomeMadeList or ctrl + q on the method name
     public void add(int a) {
-        add(savedElements, a);
-//        if (savedElements == underLyingArray.length) {
-//            //Create the new larger array
-//            int[] temporaryArray = new int[underLyingArray.length * EXPANSION_FACTOR];
-//            // Copy elements from old array
-//            for (int i =0; i< underLyingArray.length; i++) {
-//                temporaryArray[i] = underLyingArray[i];
-//            }
-//            // Change the underlying array to point at the new array
-//            underLyingArray = temporaryArray;
-//        }
-//        this.underLyingArray[savedElements] = a;
-//        savedElements++;
-    }
-
-    // For javadoc see HomeMadeList or ctrl + q on the method name
-    public void add(int index, int a) {
-        if (index > savedElements || index < 0) { //change to underlyingArray.length, if this behaviour is not desired
-            throw new ArrayIndexOutOfBoundsException("index " + index +
-                    " is out of bounds for the number of saved elements: " + savedElements +
-                    ", The highest allowed index is " + savedElements);
-        }
-
-        if (savedElements == underLyingArray.length && index == savedElements) {
+        if (savedElements == underLyingArray.length) {
             //Create the new larger array
             int[] temporaryArray = new int[underLyingArray.length * EXPANSION_FACTOR];
             // Copy elements from old array
-            for (int i = 0; i < underLyingArray.length; i++) {
+            // Should use arrayCopy
+            for (int i =0; i< underLyingArray.length; i++) {
                 temporaryArray[i] = underLyingArray[i];
             }
-            // Change the underlying array to point at the new array
+            // Change the reference of the underlying array to point at the new array
             underLyingArray = temporaryArray;
         }
-        this.underLyingArray[index] = a;
+
+        // Add the new element
+        this.underLyingArray[savedElements] = a;
         savedElements++;
+        // the above lines could be merged to:
+//        this.underLyingArray[savedElements++] = a;
+        // But this requires more explanation to ensure that the students understand that:
+        // savedElements is read first, given as the index, and then incremented
+    }
+
+    // For javadoc see HomeMadeList or ctrl + q on the method name
+    public void set(int index, int a) {
+        if (index >= savedElements || index < 0) { //change to underlyingArray.length, if this behaviour is not desired
+            throw new ArrayIndexOutOfBoundsException("index " + index +
+                    " is out of bounds for the number of saved elements: " + savedElements +
+                    ", The highest allowed index is " + (savedElements-1));
+        }
+
+        // set the element
+        this.underLyingArray[index] = a;
     }
 
     // For javadoc see HomeMadeList or ctrl + q on the method name
@@ -148,7 +144,6 @@ public class DynamicArray implements HomeMadeList {
 
             this.underLyingArray = shrunkArray;
         }
-
 
         return out;
     }
